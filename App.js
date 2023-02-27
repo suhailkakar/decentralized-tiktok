@@ -1,20 +1,19 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import Routes from './routes'
+import WalletConnectProvider from "react-native-walletconnect";
+import { LivepeerConfig } from '@livepeer/react-native';
+import LPClient from './clients/livepeer';
+import { ApolloProvider } from '@apollo/client';
+import APClient from './clients/apollo';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <WalletConnectProvider>
+      <ApolloProvider client={APClient}>
+        <LivepeerConfig client={LPClient}>
+          <Routes />
+        </LivepeerConfig>
+      </ApolloProvider>
+    </WalletConnectProvider>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
